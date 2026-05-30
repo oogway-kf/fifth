@@ -1,0 +1,33 @@
+name: pycodestyle check
+
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies from requirements.txt
+        run: pip install -r requirements.txt
+
+      - name: Install pycodestyle
+        run: pip install pycodestyle
+
+      - name: Run pycodestyle check
+        run: |
+          OUTPUT=$(pycodestyle script.py)
+          if [ -n "$OUTPUT" ]; then
+            echo "PEP-8 errors found:"
+            echo "$OUTPUT"
+            exit 1
+          else
+            echo "No PEP-8 errors. All good!"
+          fi

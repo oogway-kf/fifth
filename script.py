@@ -1,4 +1,3 @@
-cat > script.py << 'EOF'
 import json
 import csv
 import sys
@@ -71,4 +70,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-EOF
